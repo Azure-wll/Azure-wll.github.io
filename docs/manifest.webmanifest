@@ -1,0 +1,10 @@
+{
+  "name": "知库｜个人知识补给",
+  "short_name": "知库",
+  "description": "每天20分钟，职业与生活各学一点。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#f5f1e8",
+  "lang": "zh-CN"
+}
