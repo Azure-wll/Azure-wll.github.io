@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { cards, getCard, learningDays, type LearningCard } from "./learning-data";
 
 type View = "today" | "week" | "inbox" | "me";
@@ -12,6 +12,23 @@ type Progress = {
 };
 
 const emptyProgress: Progress = { completed: [], answers: {}, notes: {}, inbox: [] };
+
+function readProgress(value: string | null): Progress {
+  if (!value) return emptyProgress;
+  try {
+    const parsed = JSON.parse(value) as Partial<Progress>;
+    return {
+      completed: Array.isArray(parsed.completed) ? parsed.completed.filter((item): item is string => typeof item === "string") : [],
+      answers: parsed.answers && typeof parsed.answers === "object" ? parsed.answers : {},
+      notes: parsed.notes && typeof parsed.notes === "object" ? parsed.notes : {},
+      inbox: Array.isArray(parsed.inbox)
+        ? parsed.inbox.filter((item): item is Progress["inbox"][number] => Boolean(item && typeof item.id === "number" && typeof item.text === "string" && typeof item.type === "string"))
+        : [],
+    };
+  } catch {
+    return emptyProgress;
+  }
+}
 
 function Icon({ children }: { children: React.ReactNode }) {
   return <span className="icon" aria-hidden="true">{children}</span>;
@@ -26,12 +43,34 @@ export default function Home() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("zhiku-progress-v1");
-    if (saved) {
-      try { setProgress(JSON.parse(saved)); } catch { /* keep a clean local profile */ }
+    const savedProgress = readProgress(window.localStorage.getItem("zhiku-progress-v1"));
+
+    async function removePrototypeCache() {
+      // Unregistering a worker does not release the page it already controls.
+      // Reload once after cleanup so every panel uses one deployment version.
+      const wasControlled = "serviceWorker" in navigator && Boolean(navigator.serviceWorker.controller);
+
+      if ("serviceWorker" in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations().catch(() => []);
+        await Promise.all(registrations.map((registration) => registration.unregister()));
+      }
+      if ("caches" in window) {
+        const keys = await window.caches.keys().catch(() => []);
+        await Promise.all(keys.filter((key) => key.startsWith("zhiku-")).map((key) => window.caches.delete(key)));
+      }
+
+      if (wasControlled && window.sessionStorage.getItem("zhiku-sw-reset") !== "done") {
+        window.sessionStorage.setItem("zhiku-sw-reset", "done");
+        window.location.reload();
+        return;
+      }
+
+      window.sessionStorage.removeItem("zhiku-sw-reset");
+      setProgress(savedProgress);
+      setReady(true);
     }
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => null);
-    setReady(true);
+
+    void removePrototypeCache();
   }, []);
 
   useEffect(() => {
@@ -89,7 +128,6 @@ export default function Home() {
         {view === "week" && (
           <WeekView
             progress={progress}
-            onOpen={setSelectedCard}
             onPickDay={(value) => { setSelectedDay(value); setView("today"); }}
           />
         )}
@@ -310,9 +348,8 @@ function CardReader({ card, savedAnswer, savedNote, completed, onClose, onComple
   );
 }
 
-function WeekView({ progress, onOpen, onPickDay }: {
+function WeekView({ progress, onPickDay }: {
   progress: Progress;
-  onOpen: (card: LearningCard) => void;
   onPickDay: (day: number) => void;
 }) {
   const learnedCards = cards.filter((card) => progress.completed.includes(card.id));
@@ -464,7 +501,7 @@ function InstallSheet({ onClose }: { onClose: () => void }) {
         <button className="sheet-close" onClick={onClose}>×</button>
         <span className="install-art">知</span>
         <h2>把知库放到 iPhone 桌面</h2>
-        <p>安装后可以像小程序一样打开，已经加载过的卡片支持离线阅读。</p>
+        <p>安装后可以像小程序一样从桌面打开，学习记录仍只保存在你的设备中。</p>
         <ol><li><span>1</span>用 Safari 打开这个页面</li><li><span>2</span>点击底部的“分享”按钮</li><li><span>3</span>选择“添加到主屏幕”</li></ol>
         <button className="primary-button wide" onClick={onClose}>我知道了</button>
       </section>
