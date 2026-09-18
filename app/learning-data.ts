@@ -370,14 +370,189 @@ export const cards: LearningCard[] = [
       verified: "2026-09-16",
     },
   },
+  {
+    id: "life-unreliable-narrator",
+    kind: "life",
+    category: "文学理论",
+    eyebrow: "阅读方法 · 5分钟",
+    title: "叙述者说的话，不一定等于作品真相",
+    minutes: 5,
+    summary:
+      "不可靠叙述者是指读者有理由怀疑其判断、认知或陈述的叙述声音。作者会利用这种距离，让读者主动拼接事实，而不是被动接受故事版本。",
+    keyPoint: "分析叙述者时，不只问“他说了什么”，还要问“文本给了哪些证据，让我不能完全相信他”。",
+    sections: [
+      {
+        title: "谁提出了这个概念",
+        body: "美国文学批评家韦恩·布斯在1961年的《小说修辞学》中系统使用“不可靠叙述者”概念，用来讨论叙述者的价值判断与作品整体规范之间的距离。",
+      },
+      {
+        title: "怎么识别",
+        body: "留意叙述者前后矛盾、知识受限、强烈自我辩护，或其他人物与事件不断反驳其说法。关键不是他偶尔记错，而是文本持续邀请读者修正他的版本。",
+      },
+    ],
+    misconception: "第一人称叙述不等于不可靠；第三人称也不自动客观。可靠性要由文本证据判断。",
+    scenario:
+      "人物不断声称自己“完全不在意”，但叙述中反复记录对方的一举一动。读者可以把这种言行裂缝当作理解人物的入口。",
+    question: {
+      prompt: "判断叙述者是否可靠，最有力的依据是什么？",
+      options: ["故事使用第一人称", "文本中的矛盾与反证", "叙述者说自己很诚实"],
+      answer: 1,
+      explanation: "可靠性来自文本内部证据，而不是人称形式或叙述者的自我保证。",
+    },
+    source: {
+      label: "Wayne C. Booth｜The Rhetoric of Fiction",
+      url: "https://press.uchicago.edu/ucp/books/book/chicago/R/bo5959962.html",
+      verified: "2026-09-18",
+    },
+  },
+  {
+    id: "career-candidate-experiment",
+    kind: "career",
+    category: "招聘运营",
+    eyebrow: "漏斗复盘 · 5分钟",
+    title: "招聘复盘时，每轮只改变一个变量",
+    minutes: 5,
+    summary:
+      "当搜索结果不足时，同时改岗位名、地点、年限和行业，会让你无法判断究竟是哪项调整产生了效果。",
+    keyPoint: "把招聘搜索当作小实验：固定其他条件，每轮只改一个变量，并记录数量与质量变化。",
+    sections: [
+      {
+        title: "先写清基线",
+        body: "记录本轮平台、关键词、地域、年限、公司范围，以及浏览、合格、沟通和回复人数。没有基线，就只能凭印象说“这轮好像更有效”。",
+      },
+      {
+        title: "数量与质量分开看",
+        body: "某次放宽条件可能让简历数上升，却没有增加合格候选人。有效调整应同时观察候选池大小、有效率和回复率。",
+      },
+    ],
+    misconception: "一次结果更好不等于已经证明因果；招聘市场会随时间、平台活跃度和岗位热度变化。",
+    scenario:
+      "第一轮只搜“SQE”，第二轮保留其他条件，仅增加“供应商质量工程师”。比较两轮新增人数和有效率，再决定下一步是否调整行业。",
+    question: {
+      prompt: "为了知道哪个调整有效，一轮搜索最好怎么改？",
+      options: ["同时放宽全部条件", "只改变一个关键变量", "不记录过程只看感觉"],
+      answer: 1,
+      explanation: "单变量迭代更容易判断变化来自哪里，也便于形成可复用的搜索方法。",
+    },
+    source: {
+      label: "CIPD｜Recruitment: an introduction",
+      url: "https://www.cipd.org/en/knowledge/factsheets/recruitment-factsheet/",
+      verified: "2026-09-18",
+    },
+  },
+  {
+    id: "life-availability-heuristic",
+    kind: "life",
+    category: "心理学",
+    eyebrow: "判断偏差 · 5分钟",
+    title: "容易想起来，不代表更常发生",
+    minutes: 5,
+    summary:
+      "可得性启发是人们根据例子在脑中浮现得有多容易，来估计事件的频率或概率。鲜明、近期和情绪强烈的信息尤其容易影响判断。",
+    keyPoint: "脑中第一个例子是线索，不是统计数据。",
+    sections: [
+      {
+        title: "为什么会出现",
+        body: "人的注意力和记忆资源有限，用容易提取的信息快速判断通常很省力；但新闻曝光、个人经历和情绪会让某些例子显得异常常见。",
+      },
+      {
+        title: "一个校正动作",
+        body: "当你想到“总是如此”时，先寻找基准数据，再主动回忆反例。把“我最近听说三次”与“它实际发生的比例”分开。",
+      },
+    ],
+    misconception: "使用经验并不一定错误；问题在于把容易回忆误当成高概率。",
+    scenario:
+      "连续遇到两位沟通不及时的候选人后，你可能觉得“这个平台的人都不靠谱”。先看更大样本的回复与到面数据，再评价平台。",
+    question: {
+      prompt: "哪种做法最能减少可得性启发的影响？",
+      options: ["只相信印象最深的案例", "查看基准数据并寻找反例", "更快作出判断"],
+      answer: 1,
+      explanation: "基准数据能把鲜明个案放回真实比例中，反例则能检验“总是如此”的判断。",
+    },
+    source: {
+      label: "Britannica｜Availability heuristic",
+      url: "https://www.britannica.com/science/availability-heuristic",
+      verified: "2026-09-18",
+    },
+  },
+  {
+    id: "career-interview-note",
+    kind: "career",
+    category: "面试评估",
+    eyebrow: "记录方法 · 5分钟",
+    title: "面试笔记先记事实，再写判断",
+    minutes: 5,
+    summary:
+      "把候选人的原话、行为和结果，与“沟通一般”“不够稳定”等评价分开记录，能让面试结论更容易复核。",
+    keyPoint: "证据层写发生了什么，判断层再说明它与岗位标准有什么关系。",
+    sections: [
+      {
+        title: "事实和标签的区别",
+        body: "“回答三个问题都没有给出结果数据”是可核对事实；“缺乏结果意识”是基于标准的推断。先保留前者，讨论时才知道结论从哪里来。",
+      },
+      {
+        title: "记录一个完整证据链",
+        body: "按情境、任务、本人行动和结果记录。若缺少一环，就把它变成追问，而不是用经验替候选人补齐。",
+      },
+    ],
+    misconception: "笔记越长不一定越客观；复制大量原话却没有对应评价标准，同样难以比较。",
+    scenario:
+      "不要只写“推动力强”，而要写“面对供应商连续延期，建立周度节点表，协调采购升级处理，最终提前三天完成试产”。",
+    question: {
+      prompt: "下面哪条更适合作为面试证据？",
+      options: ["感觉不太稳定", "两年内换了三份工作并逐一说明原因", "气场不够强"],
+      answer: 1,
+      explanation: "它描述了可核对的事实；是否稳定还需要结合原因、岗位标准和其他证据判断。",
+    },
+    source: {
+      label: "U.S. OPM｜Structured Interviews",
+      url: "https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/",
+      verified: "2026-09-18",
+    },
+  },
+  {
+    id: "career-onboarding-expectations",
+    kind: "career",
+    category: "员工关系",
+    eyebrow: "入职管理 · 5分钟",
+    title: "入职融入，先把隐形规则说清楚",
+    minutes: 5,
+    summary:
+      "新人遇到的困难往往不只是不会做任务，还包括不知道谁能决策、信息在哪里、什么算完成，以及遇到问题应何时求助。",
+    keyPoint: "好的入职不是一次性介绍公司，而是逐步降低角色、关系与流程的不确定性。",
+    sections: [
+      {
+        title: "三类必须讲明的信息",
+        body: "角色：结果和优先级；关系：关键协作人与决策边界；节奏：会议、反馈和复盘方式。制度文件只能覆盖其中一部分。",
+      },
+      {
+        title: "用节点代替模糊期待",
+        body: "与其说“尽快熟悉业务”，不如约定第一周认识哪些人、第二周独立完成什么、一个月后用什么结果判断进入状态。",
+      },
+    ],
+    misconception: "把资料包发给新人不等于完成入职融入；理解需要场景、示范和反馈。",
+    scenario:
+      "新招聘专员第一周不仅学习系统，还跟随一次需求访谈、一次简历校准和一次候选人沟通复盘，逐步理解团队判断标准。",
+    question: {
+      prompt: "哪项最能降低新人的角色不确定性？",
+      options: ["只发一份制度手册", "明确阶段结果、协作人和反馈节点", "让新人自己慢慢观察"],
+      answer: 1,
+      explanation: "具体结果、关系与节奏能把隐形规则变成新人可以行动和求助的信息。",
+    },
+    source: {
+      label: "CIPD｜Employee induction",
+      url: "https://www.cipd.org/en/knowledge/factsheets/induction-factsheet/",
+      verified: "2026-09-18",
+    },
+  },
 ];
 
 export const learningDays = [
-  { day: 1, label: "周一", career: "career-talent-map", life: "life-gaslighting" },
-  { day: 2, label: "周二", career: "career-outreach", life: "life-social-insurance" },
-  { day: 3, label: "周三", career: "career-scorecard", life: "life-confirmation-bias" },
-  { day: 4, label: "周四", career: "career-resume-evidence", life: "life-housing-fund" },
-  { day: 5, label: "周五", career: "career-structured-interview", life: "life-assertive-boundary" },
+  { day: 1, label: "周一", cards: ["career-talent-map", "life-gaslighting", "life-unreliable-narrator"] },
+  { day: 2, label: "周二", cards: ["career-outreach", "life-social-insurance", "career-candidate-experiment"] },
+  { day: 3, label: "周三", cards: ["career-scorecard", "life-confirmation-bias", "life-availability-heuristic"] },
+  { day: 4, label: "周四", cards: ["career-resume-evidence", "life-housing-fund", "career-interview-note"] },
+  { day: 5, label: "周五", cards: ["career-structured-interview", "life-assertive-boundary", "career-onboarding-expectations"] },
 ];
 
 export function getCard(id: string) {

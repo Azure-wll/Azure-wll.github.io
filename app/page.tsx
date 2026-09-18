@@ -78,7 +78,7 @@ export default function Home() {
   }, [progress, ready]);
 
   const day = learningDays.find((item) => item.day === selectedDay) ?? learningDays[0];
-  const todayCards = [getCard(day.career), getCard(day.life)];
+  const todayCards = day.cards.map(getCard);
   const completedCount = progress.completed.length;
   const percent = Math.round((completedCount / cards.length) * 100);
 
@@ -176,15 +176,15 @@ function TodayView({ cards: todayCards, selectedDay, completed, onOpen, onSwap, 
       <section className="hero">
         <div className="date-chip">7天体验 · 第 {selectedDay} 天</div>
         <h1>今天，给自己<br /><em>20分钟</em></h1>
-        <p>两张卡刚刚好：一张让工作更专业，一张让生活更清醒。</p>
+        <p>每天三张短卡：职业能力、生活认知与通识素养，约20分钟完成。</p>
         <div className="hero-progress" aria-label={`本周进度${percent}%`}>
-          <span><b>{done}</b>/2 今日完成</span>
-          <div><i style={{ width: `${done * 50}%` }} /></div>
+          <span><b>{done}</b>/3 今日完成</span>
+          <div><i style={{ width: `${(done / 3) * 100}%` }} /></div>
         </div>
       </section>
 
       <div className="section-heading">
-        <div><span className="overline">TODAY&apos;S PAIR</span><h2>今日双卡</h2></div>
+        <div><span className="overline">TODAY&apos;S SET</span><h2>今日三张卡</h2></div>
         <button className="text-button" onClick={onSwap}>换一组 <span>↻</span></button>
       </div>
 
@@ -366,13 +366,13 @@ function WeekView({ progress, onPickDay }: {
       </section>
       <div className="week-list">
         {learningDays.map((item) => {
-          const pair = [getCard(item.career), getCard(item.life)];
-          const count = pair.filter((card) => progress.completed.includes(card.id)).length;
+          const dailyCards = item.cards.map(getCard);
+          const count = dailyCards.filter((card) => progress.completed.includes(card.id)).length;
           return (
             <button key={item.day} className="week-row" onClick={() => onPickDay(item.day)}>
               <span className="day-number">{item.day}</span>
-              <span className="day-copy"><small>{item.label} · 20分钟</small><strong>{pair[0].category} × {pair[1].category}</strong><em>{pair[0].title} / {pair[1].title}</em></span>
-              <span className={`day-state ${count === 2 ? "done" : ""}`}>{count === 2 ? "✓" : `${count}/2`}</span>
+              <span className="day-copy"><small>{item.label} · 约20分钟</small><strong>{dailyCards.map((card) => card.category).join(" × ")}</strong><em>{dailyCards.map((card) => card.title).join(" / ")}</em></span>
+              <span className={`day-state ${count === 3 ? "done" : ""}`}>{count === 3 ? "✓" : `${count}/3`}</span>
             </button>
           );
         })}
